@@ -1,0 +1,2 @@
+# ios_bug_list
+在iOS的开发过程中遇到的一些bug以及处理结果
