@@ -1,0 +1,187 @@
+atos -o YKNewPragram.app/YKNewPragram -arch arm64 0x10020fc5c
+dwarfdump --lookup 0x10004ec4c -arch arm64 EBNewsProject.app.dSYM
+
+//生成appledoc解释文件
+appledoc --no-create-docset --output ./EBNewsDoc --project-name "yibang" --company-id "com.ebrun" --project-company "ebrun"  ./
+
+//mysql忘记密码后重置密码，各个版本好像都不一样，这是适用于8.5版本的方法
+sudo mysqld_safe --skip-grant-tables //终端运行此方法后另外新打开一个终端窗口
+cd /usr/local/mysql/bin/
+./mysql
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';//运行成功后可以用新密码登录了
+mysql -u root -p
+
+
+//扫描工程下含有UIWebView的代码
+find . -type f | grep -e ".a" -e ".framework" | xargs grep -s UIWebView
+
+//安装Xcode组件
+xcode-select --install
+
+//打开redis服务
+redis-server
+
+//打开rabbitmq服务
+brew services start rabbitmq
+
+//查看端口占用情况
+lsof -i tcp:port
+
+//杀进程
+sudo kill -9 pid
+
+//git拉取远端分支到本地
+git fetch origin dev
+git checkout -b dev(本地分支名称) origin/dev(远程分支名称)
+
+//git创建本地分支并推送到远程分支
+git branch feature/v5.8.0
+git checkout feature/v5.8.0
+git push origin feature/v5.8.0:feature/v5.8.0
+git branch --set-upstream-to=origin/feature/v5.8.0 feature/v5.8.0
+
+//git远程仓库迁移地址
+git remote -v
+git remote rm origin
+git remote show
+git remote add origin ssh://git@106.75.41.235:5188/ios_yibang.git
+//然后需要对各个分支一一建立对应关系
+
+//git删除本地分支
+git branch -d branch_name
+
+//git删除远程分支
+git push origin --delete branch_name
+
+
+//找到当前文件夹下以md为后缀名，匹配到hijklm的字符串并显示出行数，不加-n不显示行数
+find . -name "*.md"|xargs grep -n 'hijklm'
+结果：
+./adjfoajdosi.md:12:Abcdefghijklmn
+./duantest.md:4:abcdefghijklmnopqrst
+
+
+//生成sha256加密证书
+ssh-keygen
+
+//设置定时任务;-e表示设置，-r标示删除，-l标示显示任务列表
+crontab -e/-r/-l
+
+//给文件加可执行权限
+chmod +x ehco_test.sh
+
+//修改crontab默认编辑器为vim
+export EDITOR=vim
+
+//查看main.m的源码
+clang -rewrite-objc main.m
+
+//找到后缀.m .mm .h 的文件，输出文件行数
+find . -name "*.m" -or -name "*.mm" -or   -name "*.h" | xargs wc -l
+
+//找到svn软件所在的文件夹路径
+which svn
+
+//添加文件的读写权限
+sudo chmod -R 777 文件路径
+
+//安全设置里面任何来源选项显示
+sudo spctl --master-disable
+
+//删除当前文件夹下所有.svn文件
+find . -type d -name ".svn"|xargs rm -rf
+
+//启动阿帕奇服务器
+sudo apachectl start
+
+//合并模拟器库和真机库
+lipo -create Release-iphoneos/libSomePublicView.a Release-iphonesimulator/libSomePublicView.a -output libSomePublicView.a
+
+//生成pem证书
+openssl pkcs12 -in dianShangPush.p12 -out dianShangPush.pem -nodes
+
+//查看RWUIControls 框架的CPU架构
+$ RWUIControls.framework  xcrun lipo -info RWUIControls
+
+//查看clang的使用说明
+man clang
+
+//Low Level Virtual Machine 简称：LLVM
+
+//clang 指令存放在哪儿
+which clang
+
+//MacPorts 类似linux下的rpm工具 帮助安装一些软件的软件
+
+//lldb调试技巧
+po str回车  //答应变量str的值 
+po(print object)
+p (print) //非对象（boolean、integer、float、etc）值
+
+expr str = @"2";  //把变量str的值设置为@“2”
+
+//编译器
+gcc [option]filename
+option: 
+-c，只编译
+-o output_filename，确定输出文件的名称为output_filename，同时这个名称不能和源文件同名。如果不给出这个选项，gcc就给出预设的可执行文件a.out
+-g，产生符号调试工具(GNU的gdb)所必要的符号资讯，要想对源代码进行调试，我们就必须加入这个选项。
+-O，对程序进行优化编译、链接，采用这个选项，整个源代码会在编译、链接过程中进行优化处理，这样产生的可执行文件的执行效率可以提高，但是，编译、链接的速度就相应地要慢一些。
+-O2，比-O更好的优化编译、链接，当然整个编译、链接过程会更慢。
+
+执行过程
+虽然我们称GCC是C语言的编译器，但使用gcc由C语言源代码文件生成可执行文件的过程不仅仅是编译的过程，而是要经历四个相互关联的步骤∶预处理(也称预编译，Preprocessing)、编译(Compilation)、汇编(Assembly)和链接(Linking)。
+命令gcc首先调用cpp进行预处理，在预处理过程中，对源代码文件中的文件包含(include)、预编译语句(如宏定义define等)进行分析。接着调用cc1进行编译，这个阶段根据输入文件生成以.i为后缀的目标文件。汇编过程是针对汇编语言的步骤，调用as进行工作，一般来讲，.S为后缀的汇编语言源代码文件和汇编、.s为后缀的汇编语言文件经过预编译和汇编之后都生成以.o为后缀的目标文件。当所有的目标文件都生成之后，gcc就调用ld来完成最后的关键性工作，这个阶段就是连接。在连接阶段，所有的目标文件被安排在可执行程序中的恰当的位置，同时，该程序所调用到的库函数也从各自所在的档案库中连到合适的地方。
+
+示例代码
+
+#include<stdio.h>
+ 
+int main(void)
+{
+    printf("hello\n");
+    return 0;
+}
+
+预编译过程
+这个过程处理宏定义和include，并做语法检查。
+可以看到预编译后，代码从6行扩展到了910行。
+
+gcc -E a.c -o a.i
+cat a.c|wc -l
+5
+cat a.i|wc -l
+910
+
+编译过程
+这个阶段，生成汇编代码。
+
+gcc -S a.i -o a.s
+cat a.s|wc-l
+59
+
+汇编过程
+这个阶段，生成目标代码。
+此过程生成ELF格式的目标代码。
+
+gcc -c a.s -o a.o
+file a.o
+a.o:ELF64-bitLSBrelocatable,AMDx86-64,version1(SYSV),notstripped
+
+链接过程
+链接过程。生成可执行代码。链接分为两种，一种是静态链接，另外一种是动态链接。使用静态链接的好处是，依赖的动态链接库较少，对动态链接库的版本不会很敏感，具有较好的兼容性；缺点是生成的程序比较大。使用动态链接的好处是，生成的程序比较小，占用较少的内存。
+
+gcc a.o -o a
+
+程序运行：
+./a
+hello
+
+
+3、使用gdb
+使用方法：在命令行中键入gdb并按回车就可以运行gdb了，启动gdb后，能在命令行上制定很多的选项，也可以下面的方式来运行gdb: gdb filename 用这种方式运行gdb时，能直接指定想要调试的程序。在命令行上健入gdb -h得到一个有关gdb的选项的说明简单列表。
+
+4.lldb
+
+//苹果开源文件地址
+https://opensource.apple.com/source/
