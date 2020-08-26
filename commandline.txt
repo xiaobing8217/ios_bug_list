@@ -24,6 +24,15 @@ redis-server
 //打开rabbitmq服务
 brew services start rabbitmq
 
+//打开zookeeper服务
+brew services start zookeeper
+
+//查看zookeeper状态
+zkServer  status
+
+//打开zookeeper客户端
+zkCli  -server localhost
+
 //查看端口占用情况
 lsof -i tcp:port
 
