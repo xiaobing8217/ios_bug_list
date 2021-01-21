@@ -1,6 +1,9 @@
 atos -o YKNewPragram.app/YKNewPragram -arch arm64 0x10020fc5c
 dwarfdump --lookup 0x10004ec4c -arch arm64 EBNewsProject.app.dSYM
 
+//测试服务器日志存放地址
+/data/site/tomcat_crm/logs/catalina.out
+
 //生成appledoc解释文件
 appledoc --no-create-docset --output ./EBNewsDoc --project-name "yibang" --company-id "com.ebrun" --project-company "ebrun"  ./
 
