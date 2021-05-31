@@ -65,6 +65,9 @@ git branch -d branch_name
 //git删除远程分支
 git push origin --delete branch_name
 
+//命令行获取iPhone序列号
+system_profiler SPUSBDataType | grep "Serial Number:.*" | sed s#".*Serial Number: "## 
+
 
 //找到当前文件夹下以md为后缀名，匹配到hijklm的字符串并显示出行数，不加-n不显示行数
 find . -name "*.md"|xargs grep -n 'hijklm'
